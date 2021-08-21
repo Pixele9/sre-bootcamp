@@ -11,7 +11,7 @@ protected = Restricted()
 # Just a health check
 @app.route("/")
 def url_root():
-    return "OK"
+    return "HOME OK"
 
 
 # Just a health check
@@ -29,7 +29,6 @@ def url_login():
         "data": login.generate_token(username, password)
     }
     return jsonify(res)
-
 
 # # e.g. http://127.0.0.1:8000/protected
 @app.route("/protected")
