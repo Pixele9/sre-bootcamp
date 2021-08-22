@@ -1,11 +1,24 @@
 import unittest
 from methods import Token, Restricted
 import werkzeug
+import requests
 class TestStringMethods(unittest.TestCase):
 
     def setUp(self):
         self.convert = Token()
         self.validate = Restricted()
+
+    # home health check
+    def test_health_check2(self):
+        responseText = requests.get("http://localhost:8000/").text
+        print(responseText)
+        self.assertEqual("HOME OK", responseText)
+
+    # health check
+    def test_health_check(self):
+        responseText = requests.get("http://localhost:8000/_health").text
+        print(responseText)
+        self.assertEqual("OK", responseText)
 
     def test_generate_token(self):
         # I had to change this JWT token because PyJWT changes the order of the headers
