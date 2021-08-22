@@ -4,6 +4,7 @@ from mysql.connector import errorcode
 import jwt
 import hashlib
 from flask import abort
+from werkzeug.exceptions import Forbidden
 
 class Token:
 
@@ -42,7 +43,8 @@ class Token:
                         print("PAYLOAD sent: role and hash", payload)
                         return token
                     else:
-                        abort(403, "Please check your credentials. You don't have access")
+                        raise Forbidden()
+                        # abort(403)
 
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -64,4 +66,5 @@ class Restricted:
             jwt.decode(token, "my2w7wjd7yXF64FIADfJxNs1oupTGAuW", algorithms="HS256")
             return "You are under protected data"
         except:
-            abort(403, "Please check your credentials. You don't have access")
+            raise Forbidden()
+            # abort(403)
