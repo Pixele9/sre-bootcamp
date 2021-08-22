@@ -1,5 +1,8 @@
 # Wizeline SRE Bootcamp Challenge
 
+## Docker Hub Repo
+[wize-andres-leal](https://hub.docker.com/r/andresleal/wize-andres-leal)
+
 Thank you for registering for the Wizeline Academy SRE Bootcamp, and welcome to the Technical Challenge!
 
 In order to be accepted into the Wizeline Academy SRE Bootcamp, you must successfully complete the Technical Challenge, which consists of two parts. After registering, you have **3 days** to complete both parts, detailed below. 
