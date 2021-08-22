@@ -32,9 +32,6 @@ class TestStringMethods(unittest.TestCase):
         except Exception as e:
             return True
 
-        # self.assertRaises(werkzeug.exceptions.Forbidden, self.convert.generate_token("admin", "nopassword"))
-        # self.assertEqual("403 Forbidden: You don't have the permission to access the requested resource. It is either read-protected or not readable by the server.", self.convert.generate_token("admin", "nopassword"))
-
     def test_access_data(self): 
         self.assertEqual('You are under protected data', self.validate.access_data('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4ifQ.StuYX978pQGnCeeaj2E1yBYwQvZIodyDTCJWXdsxBGI'))
 
