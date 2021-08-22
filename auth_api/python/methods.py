@@ -3,6 +3,7 @@ import mysql.connector
 from mysql.connector import errorcode
 import jwt
 import hashlib
+from flask import abort
 
 class Token:
 
@@ -29,15 +30,19 @@ class Token:
                     saltedInput = password + salt
 
                     # hash salted input
-                    hashedPassowrd = hashlib.sha512(saltedInput.encode()).hexdigest()
-                    print("Hashed password: ", hashedPassowrd)
+                    hashedPassword = hashlib.sha512(saltedInput.encode()).hexdigest()
+                    print("Hashed password: ", hashedPassword)
 
                     # verify if hashes are the same
                     # if so return the hashed passowrd
-                    if hashedPassowrd == local_password:
-                        return hashedPassowrd
+                    if hashedPassword == local_password:
+                        # JWT token generation
+                        payload = { "role": role }
+                        token = jwt.encode(payload, "my2w7wjd7yXF64FIADfJxNs1oupTGAuW", algorithm="HS256")
+                        print("PAYLOAD sent: role and hash", payload)
+                        return token
                     else:
-                        return "Password or Username wrong"
+                        abort(403, "Please check your credentials. You don't have access")
 
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -53,4 +58,10 @@ class Token:
 class Restricted:
 
     def access_data(self, authorization):
-        return 'test'
+        token =  authorization.replace("Bearer ", "")
+        print("AUTH: ", token)
+        try:
+            jwt.decode(token, "my2w7wjd7yXF64FIADfJxNs1oupTGAuW", algorithms="HS256")
+            return "You are under protected data"
+        except:
+            abort(403, "Please check your credentials. You don't have access")
