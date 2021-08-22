@@ -18,8 +18,8 @@ class Token:
             )
             cursor = cnx.cursor()
 
-            query = ("SELECT username, password, salt, role FROM users")
-            cursor.execute(query)
+            query = ("SELECT username, password, salt, role FROM users WHERE username = %s")
+            cursor.execute(query, (username,))
 
             userData = {}
             saltedInput = ""
